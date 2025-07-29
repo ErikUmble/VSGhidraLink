@@ -43,7 +43,6 @@ function sendUrlToGhidra(url: string) {
     const client = new net.Socket();
 
     client.connect(GHIDRA_PORT, GHIDRA_HOST, () => {
-        console.log(`Connected to Ghidra and sending: ${url}`);
         client.write(url + '\n');
         client.end();
         vscode.window.setStatusBarMessage(`Ghidra Link: Sent successfully!`, 3000);

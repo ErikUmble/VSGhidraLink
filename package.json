@@ -10,7 +10,9 @@
     "Other"
   ],
   "activationEvents": [
-    "*"
+    "onLanguage:plaintext",
+    "onLanguage:markdown",
+    "onLanguage:ipython"
   ],
   "main": "./out/extension.js",
   "contributes": {
