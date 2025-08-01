@@ -6,7 +6,7 @@ Warning: this extension communicates with Ghidra over a local socket. Do not use
 
 ## Features
 
-This extension provides a popup code lens for any `ghidra://filename#address` style urls found in markdown or plaintext language files. Clicking the popup sends the url to the localhost socket 24437. The popup only appears for files in edit mode - not for rendered markdown or executed markdown cells in a Jupyter notebook.
+This extension provides a code hint for any `ghidra://filename#address` style urls found in markdown or plaintext language files. Clicking the popup sends the url to the localhost socket 24437. The popup only appears for files in edit mode - not for rendered markdown or executed markdown cells in a Jupyter notebook.
 
 
 
@@ -21,7 +21,7 @@ Using this extension ONLY makes sense if you have Ghidra installed, and have the
 
 ## Known Issues
 
-Ghidra links themselves do not work inside VS Code. You must click the `"↗️ Open in Ghidra"` popup, not the link itself.
+Ghidra links themselves do not work inside VS Code. You must click the `"↗️ Open in Ghidra"` popup or use CTR + Click on the code hint, not the link itself.
 
 The popup only appears for files in edit mode - not for rendered markdown or executed markdown cells in a Jupyter notebook. This is due to a limitation in modifying rendered markdown in Jupyer notebooks. 
 
@@ -32,7 +32,7 @@ You may report issues or contribute improvements on the [Github repository](http
 
 ### 0.0.1
 
-Very simple version. Does one thing. Adds code lens popups to Ghidra links. 
+Very simple version. Does one thing. Adds code hint popups to Ghidra links. 
 
 
 **Enjoy!**
