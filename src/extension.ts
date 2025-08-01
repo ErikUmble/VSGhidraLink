@@ -5,33 +5,38 @@ const GHIDRA_PORT = 24437;
 const GHIDRA_HOST = '127.0.0.1';
 
 /**
- * This class provides the "Open in Ghidra" CodeLens over any ghidra:// link.
+ * Provides a clickable "Open in Ghidra" inlay hint before any ghidra:// link.
  */
-class GhidraLinkCodeLensProvider implements vscode.CodeLensProvider {
+class GhidraInlayHintsProvider implements vscode.InlayHintsProvider {
 
-    public provideCodeLenses(document: vscode.TextDocument, token: vscode.CancellationToken): vscode.ProviderResult<vscode.CodeLens[]> {
-        const codeLenses: vscode.CodeLens[] = [];
+    public provideInlayHints(document: vscode.TextDocument, range: vscode.Range, token: vscode.CancellationToken): vscode.ProviderResult<vscode.InlayHint[]> {
+        const hints: vscode.InlayHint[] = [];
         const regex = /ghidra:\/\/([^#]+)#([0-9a-fA-F]+)/g;
         const text = document.getText();
         let matches;
 
         while ((matches = regex.exec(text)) !== null) {
-            const url = matches[0];
-            const startPos = document.positionAt(matches.index);
-            const endPos = document.positionAt(matches.index + url.length);
-            const range = new vscode.Range(startPos, endPos);
-            
-            if (range) {
-                const command: vscode.Command = {
-                    title: "↗️ Open in Ghidra",
-                    tooltip: `Send this link directly to Ghidra: ${url}`,
-                    command: "ghidra-link-opener.openInGhidra",
-                    arguments: [url]
-                };
-                codeLenses.push(new vscode.CodeLens(range, command));
-            }
+            const position = document.positionAt(matches.index);
+
+            const hint = new vscode.InlayHint(
+                position, 
+                [{
+                    value: `↗️ Open in Ghidra`,
+                    command: {
+                        title: "Open Link in Ghidra",
+                        command: "ghidra-link-opener.openInGhidra",
+                        arguments: [matches[0]]
+                    }
+                }]
+            );
+
+            // add space for readability
+            hint.paddingRight = true;
+
+            hints.push(hint);
         }
-        return codeLenses;
+
+        return hints;
     }
 }
 
@@ -67,16 +72,14 @@ export function activate(context: vscode.ExtensionContext) {
 
     const supportedLanguages = ['plaintext', 'markdown'];
 
-    // Register CodeLens provider for supported languages
-    const codeLensProviders = supportedLanguages.map(lang =>
-        vscode.languages.registerCodeLensProvider(
-            { language: lang },
-            new GhidraLinkCodeLensProvider()
-        )
+    // Register the Inlay Hints provider for supported languages
+    const inlayHintsProvider = vscode.languages.registerInlayHintsProvider(
+        supportedLanguages.map(language => ({ language })),
+        new GhidraInlayHintsProvider()
     );
 
     // Push everything into subscriptions to properly dispose on deactivation
-    context.subscriptions.push(openInGhidraCommand, ...codeLensProviders);
+    context.subscriptions.push(openInGhidraCommand, inlayHintsProvider);
 
     vscode.window.setStatusBarMessage('VSGhidraLink is active ✔️', 3000);
 }
