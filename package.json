@@ -3,6 +3,10 @@
   "displayName": "VSGhidraLink",
   "description": "Open ghidra:// links (from GhidraLinkPlugin) in VS Code",
   "version": "0.0.1",
+  "repository": {
+    "type": "git",
+    "url": "https://github.com/ErikUmble/VSGhidraLink.git"
+  },
   "engines": {
     "vscode": "^1.102.0"
   },
@@ -15,20 +19,10 @@
   ],
   "main": "./out/extension.js",
   "contributes": {
-    "languages": [
-      { "id": "plaintext" },
-      { "id": "markdown" }
-    ],
     "commands": [
       {
         "command": "ghidra-link-opener.openInGhidra",
         "title": "Open Link in Ghidra"
-      }
-    ],
-    "codeLensProviders": [
-      {
-        "language": "plaintext",
-        "provider": "ghidra-link-opener.openInGhidra"
       }
     ]
   },
