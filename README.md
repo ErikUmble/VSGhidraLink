@@ -8,7 +8,11 @@ Warning: this extension communicates with Ghidra over a local socket. Do not use
 
 This extension provides a popup code lens for any `ghidra://filename#address` style urls found in markdown or plaintext language files. Clicking the popup sends the url to the localhost socket 24437. The popup only appears for files in edit mode - not for rendered markdown or executed markdown cells in a Jupyter notebook.
 
-<iframe width="560" height="315" src="https://www.youtube-nocookie.com/embed/GluS8tlGAfI?si=Hav84jlyXrCCZQe3&loop=1" title="YouTube video player" frameborder="0" allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture; web-share" referrerpolicy="strict-origin-when-cross-origin" allowfullscreen></iframe>
+
+
+https://github.com/user-attachments/assets/12ae180b-f5bc-48e6-86ac-59eed8477f06
+
+
 
 ## Requirements
 
