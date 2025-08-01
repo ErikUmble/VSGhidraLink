@@ -4,6 +4,11 @@ This extension accompanies the [Ghidra Link Plugin](https://github.com/ErikUmble
 
 Warning: this extension communicates with Ghidra over a local socket. Do not use this extension in untrusted workspaces.
 
+## Installation
+This extension is not yet on the VS Code Extension Marketplace. Instead, download the [latest release](https://github.com/ErikUmble/VSGhidraLink/releases/).
+
+In VS Code, go to `Extensions tab > ... > Install from VSIX` and choose the file you downloaded.
+
 ## Features
 
 This extension provides a code hint for any `ghidra://filename#address` style urls found in markdown or plaintext language files. Clicking the popup sends the url to the localhost socket 24437. The popup only appears for files in edit mode - not for rendered markdown or executed markdown cells in a Jupyter notebook.
@@ -24,6 +29,8 @@ Using this extension ONLY makes sense if you have Ghidra installed, and have the
 Ghidra links themselves do not work inside VS Code. You must click the `"↗️ Open in Ghidra"` popup or use CTR + Click on the code hint, not the link itself.
 
 The popup only appears for files in edit mode - not for rendered markdown or executed markdown cells in a Jupyter notebook. This is due to a limitation in modifying rendered markdown in Jupyer notebooks. 
+
+On Windows, if using VS Code in WSL, you'll need to either run Ghidra in WSL also, or forward the socket from WSL localhost to your Windows host.
 
 ## Issues and Collaboration
 You may report issues or contribute improvements on the [Github repository](https://github.com/ErikUmble/VSGhidraLink).
