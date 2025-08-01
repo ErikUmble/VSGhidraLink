@@ -11,7 +11,7 @@ class GhidraLinkCodeLensProvider implements vscode.CodeLensProvider {
 
     public provideCodeLenses(document: vscode.TextDocument, token: vscode.CancellationToken): vscode.ProviderResult<vscode.CodeLens[]> {
         const codeLenses: vscode.CodeLens[] = [];
-        const regex = /ghidra:\/\/[^\s'"]+/g;
+        const regex = /ghidra:\/\/([^#]+)#([0-9a-fA-F]+)/g;
         const text = document.getText();
         let matches;
 
@@ -58,7 +58,6 @@ function sendUrlToGhidra(url: string) {
 export function activate(context: vscode.ExtensionContext) {
     console.log('VSGhidraLink extension activated!');
 
-    // Command to send the ghidra:// link to the socket
     const openInGhidraCommand = vscode.commands.registerCommand(
         'ghidra-link-opener.openInGhidra',
         (url: string) => {
@@ -66,7 +65,7 @@ export function activate(context: vscode.ExtensionContext) {
         }
     );
 
-    const supportedLanguages = ['plaintext', 'markdown', 'ipython'];
+    const supportedLanguages = ['plaintext', 'markdown'];
 
     // Register CodeLens provider for supported languages
     const codeLensProviders = supportedLanguages.map(lang =>
@@ -79,7 +78,6 @@ export function activate(context: vscode.ExtensionContext) {
     // Push everything into subscriptions to properly dispose on deactivation
     context.subscriptions.push(openInGhidraCommand, ...codeLensProviders);
 
-    // Status bar message for visual confirmation
     vscode.window.setStatusBarMessage('VSGhidraLink is active ✔️', 3000);
 }
 export function deactivate() {}
